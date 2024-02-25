@@ -1,13 +1,9 @@
-from datetime import timedelta
-from typing import Optional, Sequence, cast
-from google.cloud import videointelligence_v1 as vi
+from google.cloud import videointelligence_v1 as videointelligence
 import os
 import pandas as pd
 
 # set key credentials file path
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'airy-machine-411304-cc05ea533265.json'
-
-from google.cloud import videointelligence_v1 as videointelligence
 
 
 def detect_person(gcs_uri):
@@ -39,7 +35,6 @@ def detect_person(gcs_uri):
     return result
 
 
-
 def analyzePerson(person):
     frames = []
     for track in person.tracks:
@@ -62,7 +57,7 @@ def analyzePerson(person):
 ######################################################
 # Start Program
 ######################################################
-
+"""
 # Read the list of files from list.csv
 file_list_df = pd.read_csv('list.csv')
 
@@ -98,7 +93,8 @@ for index, row in file_list_df.iterrows():
     annotations_df.to_csv('data.csv', mode='a', header=False, index=False)
 
 
-""" video_uri = "gs://lunge-videos/V1 - 1705215994744.mp4"
+""" 
+video_uri = "gs://lunge-videos/1705346144285.mp4"
 operation = detect_person(video_uri)
 people_annotations = operation.annotation_results[0].person_detection_annotations
 
@@ -114,4 +110,4 @@ annotationsDf = annotationsDf.drop(['nose_x', 'nose_y', 'right_eye_x', 'right_ey
 annotationsDf['user_id'] = 1
 annotationsDf['score'] = 9.0
 print(annotationsDf.head())
-annotationsDf.to_csv('data.csv', mode='a', header=False, index=False) """
+annotationsDf.to_csv('data2.csv', mode='a', header=False, index=False) 
